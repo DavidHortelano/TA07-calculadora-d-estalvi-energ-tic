@@ -1,1 +1,1 @@
-# Calculadora d'estalvi energ-tic
+# Calculadora d'estalvi energtic
