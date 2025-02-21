@@ -1,1 +1,1 @@
-# TA07-calculadora-d-estalvi-energ-tic
+# Calculadora d'estalvi energ-tic
