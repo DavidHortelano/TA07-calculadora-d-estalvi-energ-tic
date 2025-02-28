@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Consumo para Institutos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2, h3 {
+            text-align: center;
+        }
+        label, input, select, button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .mensaje {
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .recomendaciones {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculadora de Consumo para Institutos</h2>
+
+    <h3>Introduce el consumo base por categoría</h3>
+    <label for="agua">Consumo de agua mensual (litros):</label>
+    <input type="number" id="agua" placeholder="Ej: 10000">
+
+    <label for="servicios">Servicios extraordinarios mensuales (€):</label>
+    <input type="number" id="servicios" placeholder="Ej: 500">
+
+    <label for="material">Material mensual (€):</label>
+    <input type="number" id="material" placeholder="Ej: 300">
+
+    <label for="fibra">Fibra y móvil mensual (€):</label>
+    <input type="number" id="fibra" placeholder="Ej: 100">
+
+    <label for="electricidad">Electricidad mensual (kWh):</label>
+    <input type="number" id="electricidad" placeholder="Ej: 5000">
+
+    <h3>Selecciona el período de cálculo</h3>
+    <label for="fechaInicio">Fecha de inicio:</label>
+    <input type="date" id="fechaInicio">
+
+    <label for="fechaFin">Fecha de finalización:</label>
+    <input type="date" id="fechaFin">
+
+    <button onclick="calcular()">Calcular</button>
+
+    <h3>Resultados:</h3>
+    <ul>
+        <li>💧 Consumo de agua en el período: <span id="agua_periodo">-</span> litros</li>
+        <li>🔌 Servicios extraordinarios en el período: <span id="servicios_periodo">-</span> €</li>
+        <li>🛒 Material en el período: <span id="material_periodo">-</span> €</li>
+        <li>📶 Fibra y móvil en el período: <span id="fibra_periodo">-</span> €</li>
+        <li>💡 Electricidad en el período: <span id="electricidad_periodo">-</span> kWh</li>
+    </ul>
+
+    <div class="mensaje" id="mensaje"></div>
+    <div class="recomendaciones" id="recomendaciones" style="display: none;"></div>
+
+    <script>
+        const mediaInstituto = {
+            agua: 120000,
+            servicios: 6000,
+            material: 3600,
+            fibra: 1200,
+            electricidad: 60000
+        };
+
+        const recomendaciones = {
+            agua: "💧 Reduce el consumo instalando sistemas de reutilización y evitando fugas.",
+            servicios: "🔌 Controla los gastos extraordinarios optimizando los recursos.",
+            material: "🛒 Compra solo lo necesario y fomenta el reciclaje de materiales.",
+            fibra: "📶 Evalúa planes de internet más económicos y eficientes.",
+            electricidad: "💡 Apaga dispositivos cuando no se usen y usa iluminación LED."
+        };
+
+        function calcularConsumoPeriodo(consumoBase, meses) {
+            return (consumoBase * meses).toFixed(2);
+        }
+
+        function calcular() {
+            let consumoAgua = parseFloat(document.getElementById("agua").value) || 0;
+            let consumoServicios = parseFloat(document.getElementById("servicios").value) || 0;
+            let consumoMaterial = parseFloat(document.getElementById("material").value) || 0;
+            let consumoFibra = parseFloat(document.getElementById("fibra").value) || 0;
+            let consumoElectricidad = parseFloat(document.getElementById("electricidad").value) || 0;
+            
+            let fechaInicio = new Date(document.getElementById("fechaInicio").value);
+            let fechaFin = new Date(document.getElementById("fechaFin").value);
+
+            if (isNaN(fechaInicio) || isNaN(fechaFin) || fechaFin <= fechaInicio) {
+                alert("Por favor, selecciona fechas válidas.");
+                return;
+            }
+
+            let diferenciaMeses = (fechaFin.getFullYear() - fechaInicio.getFullYear()) * 12 + (fechaFin.getMonth() - fechaInicio.getMonth());
+            let factorTiempo = diferenciaMeses / 12;
+            
+            document.getElementById("agua_periodo").innerText = calcularConsumoPeriodo(consumoAgua, diferenciaMeses);
+            document.getElementById("servicios_periodo").innerText = calcularConsumoPeriodo(consumoServicios, diferenciaMeses);
+            document.getElementById("material_periodo").innerText = calcularConsumoPeriodo(consumoMaterial, diferenciaMeses);
+            document.getElementById("fibra_periodo").innerText = calcularConsumoPeriodo(consumoFibra, diferenciaMeses);
+            document.getElementById("electricidad_periodo").innerText = calcularConsumoPeriodo(consumoElectricidad, diferenciaMeses);
+
+            let mensaje = "¡Felicidades! Tu consumo está dentro de la media.";
+            let recomendacionesHtml = "<h3>Recomendaciones</h3><ul>";
+            let exceso = false;
+            
+            for (let key in mediaInstituto) {
+                if (eval(`consumo${key.charAt(0).toUpperCase() + key.slice(1)}`) > mediaInstituto[key] * factorTiempo) {
+                    recomendacionesHtml += `<li>${recomendaciones[key]}</li>`;
+                    exceso = true;
+                }
+            }
+            recomendacionesHtml += "</ul>";
+            document.getElementById("mensaje").innerText = mensaje;
+            document.getElementById("recomendaciones").innerHTML = recomendacionesHtml;
+            document.getElementById("recomendaciones").style.display = exceso ? "block" : "none";
+        }
+    </script>
+</body>
+</html>

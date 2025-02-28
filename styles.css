@@ -8,7 +8,46 @@ body {
     background: url('imagenes/fondo.jpg') no-repeat center center/cover;
 }
 .senal {
-    width: 69%;
-    height: 69%;
-    background: url('imagenes/señal.png') no-repeat center center/contain;
+    font-family: Arial, sans-serif;
+    max-width: 90%;
+    margin: auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+h2, h3 {
+    text-align: center;
+}
+label, input, select, button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+}
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #218838;
+}
+ul {
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+li {
+    margin: 5px 0;
+}
+.mensaje {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+.recomendaciones {
+    background: #fff3cd;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 15px;
 }

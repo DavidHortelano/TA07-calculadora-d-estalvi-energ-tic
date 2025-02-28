@@ -5,8 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora energetica</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="script" href="">
 </head>
 <body>
-    <div class="senal"></div>
+    <div class="senal">
+        <h2>Calculadora de Consumo para Institutos</h2>
+
+        <h3>Introduce el consumo base por categoría</h3>
+        <label for="agua">Consumo de agua mensual (litros):</label>
+        <input type="number" id="agua" placeholder="Ej: 10000">
+
+        <label for="servicios">Servicios extraordinarios mensuales (€):</label>
+        <input type="number" id="servicios" placeholder="Ej: 500">
+
+        <label for="material">Material mensual (€):</label>
+        <input type="number" id="material" placeholder="Ej: 300">
+
+        <label for="fibra">Fibra y móvil mensual (€):</label>
+        <input type="number" id="fibra" placeholder="Ej: 100">
+
+        <label for="electricidad">Electricidad mensual (kWh):</label>
+        <input type="number" id="electricidad" placeholder="Ej: 5000">
+
+        <h3>Selecciona el período de cálculo</h3>
+        <label for="fechaInicio">Fecha de inicio:</label>
+        <input type="date" id="fechaInicio">
+
+        <label for="fechaFin">Fecha de finalización:</label>
+        <input type="date" id="fechaFin">
+
+        <button onclick="calcular()">Calcular</button>
+
+        <h3>Resultados:</h3>
+        <ul>
+            <li>💧 Consumo de agua en el período: <span id="agua_periodo">-</span> litros</li>
+            <li>🔌 Servicios extraordinarios en el período: <span id="servicios_periodo">-</span> €</li>
+            <li>🛒 Material en el período: <span id="material_periodo">-</span> €</li>
+            <li>📶 Fibra y móvil en el período: <span id="fibra_periodo">-</span> €</li>
+            <li>💡 Electricidad en el período: <span id="electricidad_periodo">-</span> kWh</li>
+        </ul>
+
+        <div class="mensaje" id="mensaje"></div>
+        <div class="recomendaciones" id="recomendaciones" style="display: none;"></div>
+    </div>
 </body>
 </html>
