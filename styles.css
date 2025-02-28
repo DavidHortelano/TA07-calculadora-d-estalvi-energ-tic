@@ -1,53 +1,91 @@
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('imagenes/fondo.jpg') no-repeat center center/cover;
+    background: url('imagenes/fondo.jpg') no-repeat center center fixed;
+    background-size: cover;
 }
+
+.contenedor {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.774);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 .senal {
     font-family: Arial, sans-serif;
-    max-width: 90%;
-    margin: auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-}
-h2, h3 {
+    width: 100%;
     text-align: center;
 }
-label, input, select, button {
-    display: block;
+
+h2, h3 {
+    text-align: center;
     width: 100%;
-    margin: 10px 0;
-    padding: 10px;
 }
+
+label {
+    width: 48%;
+    display: inline-block;
+    text-align: left;
+    margin-top: 10px;
+}
+
+input {
+    width: 48%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 button {
     background-color: #28a745;
     color: white;
     border: none;
+    padding: 10px;
     cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 5px;
 }
+
 button:hover {
     background-color: #218838;
 }
+
 ul {
-    background: white;
-    padding: 15px;
+    background: rgba(255, 255, 255, 0.733);
+    padding: 10px;
     border-radius: 5px;
+    width: 100%;
 }
-li {
-    margin: 5px 0;
-}
+
 .mensaje {
     font-weight: bold;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px;
 }
+
 .recomendaciones {
     background: #fff3cd;
-    padding: 15px;
+    padding: 10px;
     border-radius: 5px;
-    margin-top: 15px;
+    margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+    label, input {
+        width: 100%;
+        display: block;
+    }
 }
